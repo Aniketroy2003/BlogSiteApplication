@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+
+{% for post in blogposts %}
+
+<div class="container mt-3" style="border: 2px solid rgb(150, 148, 148); border-radius: 10px; padding: 10px;">
+    <a href="{% url 'post_detail' pk=post.pk %}"><h3 class="title mb-2 mt-3">{{post.title}}</h3></a>
+    <div class="author mb-2 bold" style="color: rgb(115, 142, 156);">{{post.author}}</div>
+    <div class="content mb-2">{{post.content}}</div>
+
+</div>
+{% endfor %}
+
+{% endblock content %}

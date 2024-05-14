@@ -1,0 +1,48 @@
+{% extends "base.html" %} 
+{% block title %}Post Detail{% endblock title %} 
+{% block content %}
+
+
+  
+<div class="container mt-3" style="
+    border: 2px solid rgb(150, 148, 148);
+    border-radius: 10px;
+    padding: 10px;
+  ">
+  <h3 class="title mb-2 mt-3">{{ post.title }}</h3>
+
+  <div class="author mb-2 bold" style="color: rgb(115, 142, 156)">
+    {{ post.author }}
+    <p style="font-size: 10px">{{ post.published_date }}</p>
+  </div>
+  <div class="content mb-2">{{ post.content|linebreaks }}</div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="input-group mt-3 mt-2">
+      <input type="text" class="form-control mb-2" aria-label="With textarea" name="text" placeholder="Comment on this post"></input></div>
+    
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+</form>
+
+  <div class="container">
+    <form method="post" id="comment-form" style="display: none">
+      {% csrf_token %}
+      <div class="input-group mt-3 mb-2">
+        <textarea class="form-control" aria-label="With textarea" placeholder="Add a comment for the post"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+  </div>
+  <hr />
+  <h4>Comments</h4>
+  {% for comment in comments %}
+  <div class="input-group mt-2">
+    <span class="input-group-text">{{ comment.author }}</span>
+    <textarea class="form-control" aria-label="With textarea" disabled readonly>{{ comment.text }}</textarea>
+    <span class="input-group-text">{{ comment.created_date }}</span>
+  </div>
+  {% empty %}
+  <li>No comments yet.</li>
+  {% endfor %}
+</div>
+{% endblock %}
